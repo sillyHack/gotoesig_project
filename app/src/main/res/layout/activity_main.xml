@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fond"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/slogan_part1"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="130dp"
+        android:text="Ensemble,"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/slogan_part2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/slogan_part1"
+        android:layout_marginTop="8dp"
+        android:text="Raffermissons nos liens"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/slogan_part2"
+        android:layout_marginTop="102dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_baseline_alternate_email_24"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C1B1B1"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/mot_de_passe"
+        android:layout_width="357dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/email"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/edit_text_border"
+        android:drawableLeft="@drawable/ic_baseline_info_24"
+        android:ems="10"
+        android:hint="Mot de passe"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C1B1B1"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btnConnexion"
+        android:layout_width="182dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mot_de_passe"
+        android:layout_marginLeft="85dp"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="#673AB7"
+        android:text="Connexion"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#000000"
+        android:textColorHint="#000000" />
+
+    <Button
+        android:id="@+id/btnInscription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnConnexion"
+        android:layout_marginLeft="98dp"
+        android:layout_marginTop="115dp"
+        android:backgroundTint="#CDC5C5"
+        android:text="Créer un compte"
+        android:textColor="#673AB7"
+        android:textSize="12sp" />
+
+</RelativeLayout>

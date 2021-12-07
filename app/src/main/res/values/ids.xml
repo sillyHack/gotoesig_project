@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="email" type="id" />
+    <item name="mot_de_passe" type="id" />
+    <item name="nom" type="id" />
+    <item name="prenom" type="id" />
+    <item name="ville" type="id" />
+    <item name="telephone" type="id" />
+</resources>
