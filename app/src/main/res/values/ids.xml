@@ -6,4 +6,6 @@
     <item name="prenom" type="id" />
     <item name="ville" type="id" />
     <item name="telephone" type="id" />
+    <item name="motDePasse" type="id" />
+    <item name="btnValider" type="id" />
 </resources>
