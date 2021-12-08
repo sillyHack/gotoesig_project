@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/edit_text_border.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/ic_baseline_phone_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/layout/activity_ajouter_trajet.xml" value="0.23097826086956522" />
         <entry key="..\:/Users/zlidi/AndroidStudioProjects/gotoesig_project/app/src/main/res/layout/activity_main.xml" value="0.23097826086956522" />
       </map>
