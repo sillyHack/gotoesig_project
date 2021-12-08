@@ -53,7 +53,7 @@ public class MainActivity3 extends AppCompatActivity{
     }
 
     public void ClickAjoutTrajet(View v) {
-        redirectActivity(this,MainActivity.class);
+        redirectActivity(this,AjouterTrajetActivity.class);
     }
 
     public void ClickMesTrajets(View v) {
