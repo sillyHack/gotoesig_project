@@ -2,21 +2,21 @@ package com.example.mini_projet.models;
 
 public class User {
 
-    String email;
-    String password;
     String nom;
     String prenom;
-    String tel;
+    String email;
     String ville;
+    String telephone;
+    String motDePasse;
     float score;
 
-    public User(String email, String password, String nom, String prenom, String tel, String ville, float score){
-        this.email = email;
-        this.password = password;
+    public User(String nom, String prenom, String email, String ville, String telephone, String motDePasse, float score){
         this.nom = nom;
         this.prenom = prenom;
-        this.tel = tel;
+        this.email = email;
         this.ville = ville;
+        this.telephone = telephone;
+        this.motDePasse = motDePasse;
         this.score = score;
     }
 
@@ -28,12 +28,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getMotDePasse() {
+        return motDePasse;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setMotDePasse(String motDePasse) {
+        this.motDePasse = motDePasse;
     }
 
     public String getNom() {
@@ -52,12 +52,12 @@ public class User {
         this.prenom = prenom;
     }
 
-    public String getTel() {
-        return tel;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setTelephone(String tel) {
+        this.telephone = telephone;
     }
 
     public String getVille() {

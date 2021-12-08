@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/gotoesig_project.iml" filepath="$PROJECT_DIR$/.idea/gotoesig_project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mini_Projet.iml" filepath="$PROJECT_DIR$/.idea/modules/Mini_Projet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mini_Projet.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mini_Projet.app.iml" />
     </modules>
   </component>
 </project>
