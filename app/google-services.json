@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "810568786653",
+    "firebase_url": "https://gotoesig-3a108-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gotoesig-3a108",
+    "storage_bucket": "gotoesig-3a108.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:810568786653:android:1d48ffb4d5791f5b3f3134",
+        "android_client_info": {
+          "package_name": "com.example.mini_projet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "810568786653-gh952ue9gh49d5vipq0s1cb4qk0u1o20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mini_projet",
+            "certificate_hash": "8c4959141d45650cad87dd004480b7d93fc61ad8"
+          }
+        },
+        {
+          "client_id": "810568786653-isd60aot46unf4a4hgp3trqa0ihbq2tk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrEMXQYbTPj-lprn-WEkmiOeKPHYKkPkg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "810568786653-isd60aot46unf4a4hgp3trqa0ihbq2tk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,14 +7,14 @@ public class Trajet {
     String moyenTransport;
     String ptDepart;
     String ptArrivee;
-    Date date;
-    int heure;
-    int retardTolere;
-    int nbPlacesDispo;
+    String date;
+    String heure;
+    String retardTolere;
+    String nbPlacesDispo;
     boolean comprendAutoroute;
-    float contribution;
+    String contribution;
 
-    public Trajet(String moyenTransport, String ptDepart, String ptArrivee, Date date, int heure, int retardTolere, int nbPlacesDispo, boolean comprendAutoroute, float contribution){
+    public Trajet(String moyenTransport, String ptDepart, String ptArrivee, String date, String heure, String retardTolere, String nbPlacesDispo, boolean comprendAutoroute, String contribution){
         this.moyenTransport = moyenTransport;
         this.ptDepart = ptDepart;
         this.ptArrivee = ptArrivee;
@@ -25,6 +25,8 @@ public class Trajet {
         this.comprendAutoroute = comprendAutoroute;
         this.contribution = contribution;
     }
+
+    public Trajet(){}
 
     public String getMoyenTransport() {
         return moyenTransport;
@@ -50,35 +52,35 @@ public class Trajet {
         this.ptArrivee = ptArrivee;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getHeure() {
+    public String getHeure() {
         return heure;
     }
 
-    public void setHeure(int heure) {
+    public void setHeure(String heure) {
         this.heure = heure;
     }
 
-    public int getRetardTolere() {
+    public String getRetardTolere() {
         return retardTolere;
     }
 
-    public void setRetardTolere(int retardTolere) {
+    public void setRetardTolere(String retardTolere) {
         this.retardTolere = retardTolere;
     }
 
-    public int getNbPlacesDispo() {
+    public String getNbPlacesDispo() {
         return nbPlacesDispo;
     }
 
-    public void setNbPlacesDispo(int nbPlacesDispo) {
+    public void setNbPlacesDispo(String nbPlacesDispo) {
         this.nbPlacesDispo = nbPlacesDispo;
     }
 
@@ -90,11 +92,11 @@ public class Trajet {
         this.comprendAutoroute = comprendAutoroute;
     }
 
-    public float getContribution() {
+    public String getContribution() {
         return contribution;
     }
 
-    public void setContribution(float contribution) {
+    public void setContribution(String contribution) {
         this.contribution = contribution;
     }
 }
