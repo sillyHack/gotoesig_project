@@ -14,6 +14,8 @@ public class Trajet {
     boolean comprendAutoroute;
     String contribution;
 
+    public Trajet(){ }
+
     public Trajet(String moyenTransport, String ptDepart, String ptArrivee, String date, String heure, String retardTolere, String nbPlacesDispo, boolean comprendAutoroute, String contribution){
         this.moyenTransport = moyenTransport;
         this.ptDepart = ptDepart;
@@ -25,8 +27,6 @@ public class Trajet {
         this.comprendAutoroute = comprendAutoroute;
         this.contribution = contribution;
     }
-
-    public Trajet(){}
 
     public String getMoyenTransport() {
         return moyenTransport;
@@ -88,9 +88,7 @@ public class Trajet {
         return comprendAutoroute;
     }
 
-    public void setComprendAutoroute(boolean comprendAutoroute) {
-        this.comprendAutoroute = comprendAutoroute;
-    }
+    public void setComprendAutoroute(boolean comprendAutoroute) { this.comprendAutoroute = comprendAutoroute; }
 
     public String getContribution() {
         return contribution;

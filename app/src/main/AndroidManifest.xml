@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mini_Projet">
         <activity
-            android:name=".AjouterTrajetActivity"
+            android:name=".gui.AjouterTrajetActivity"
             android:exported="false" />
         <activity
-            android:name=".AccueilActivity"
+            android:name=".gui.AccueilActivity"
             android:exported="false" />
         <activity
-            android:name=".InscriptionActivity"
+            android:name=".gui.InscriptionActivity"
             android:exported="false" />
         <activity
-            android:name=".ConnexionActivity"
+            android:name=".gui.ConnexionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

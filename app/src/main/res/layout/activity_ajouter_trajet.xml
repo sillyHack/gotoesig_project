@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/fond"
     android:id="@+id/drawer_layout_ajout_trajet"
-    tools:context=".AjouterTrajetActivity">
+    tools:context=".gui.AjouterTrajetActivity">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

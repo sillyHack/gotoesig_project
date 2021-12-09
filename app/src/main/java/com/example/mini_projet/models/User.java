@@ -10,6 +10,8 @@ public class User {
     String motDePasse;
     float score;
 
+    public User() { }
+
     public User(String nom, String prenom, String email, String ville, String telephone, String motDePasse, float score){
         this.nom = nom;
         this.prenom = prenom;
