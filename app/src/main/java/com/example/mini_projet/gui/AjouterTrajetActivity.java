@@ -27,10 +27,23 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AjouterTrajetActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -38,7 +51,6 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     Trajet trajet = null;
     private Spinner spinMT = null;
     private EditText etPtDepart = null;
-    private EditText etPtArrivee = null;
     private Spinner spinDay = null;
     private Spinner spinMonth = null;
     private Spinner spinYear = null;
@@ -61,7 +73,6 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
         drawerLayout = findViewById(R.id.drawer_layout_ajout_trajet);
         spinMT = findViewById(R.id.spinMT);
         etPtDepart = findViewById(R.id.etPtDepart);
-        etPtArrivee = findViewById(R.id.etPtArrivee);
         spinDay = findViewById(R.id.spinDay);
         spinMonth = findViewById(R.id.spinMonth);
         spinYear = findViewById(R.id.spinYear);
@@ -230,19 +241,216 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
             trajet = new Trajet();
             trajet.setMoyenTransport(spinMT.getSelectedItem().toString());
             trajet.setPtDepart(etPtDepart.getText().toString());
-            trajet.setPtArrivee(etPtArrivee.getText().toString());
             trajet.setDate(date);
             trajet.setHeure(etHeure.getText().toString());
             trajet.setRetardTolere(etRetardTolere.getText().toString());
             trajet.setNbPlacesDispo(etNbPlacesDispo.getText().toString());
             trajet.setComprendAutoroute(swCompAuto.isChecked());
             trajet.setContribution(etContribution.getText().toString());
-            // Instanciation of the controller
-            TrajetController tc = new TrajetController();
-            // Adding the 'trajet'
-            tc.ajouterTrajet(trajet);
-            Toast.makeText(this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
-            redirectActivity(this, AccueilActivity.class);
+
+            OkHttpClient client = new OkHttpClient();
+            /*Request request = new Request.Builder()
+                    .url("https://api.openrouteservice.org/v2/matrix/driving-car")
+                    .header("Authorization", "5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12")
+                    .build();*/
+            Request requestCoordPtDepart = new Request.Builder()
+                    .url("https://api.openrouteservice.org/geocode/autocomplete?api_key=5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12&text="+ trajet.getPtDepart() +"&boundary.rect.min_lon=0.9928593563226462&boundary.rect.min_lat=49.359600944261054&boundary.rect.max_lon=1.15439688855147&boundary.rect.max_lat=49.48095804254113")
+                    .build();
+
+            Request requestCoordPtArrivee = new Request.Builder()
+                    .url("https://api.openrouteservice.org/geocode/autocomplete?api_key=5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12&text="+ trajet.getPtArrivee() +"&boundary.rect.min_lon=0.9928593563226462&boundary.rect.min_lat=49.359600944261054&boundary.rect.max_lon=1.15439688855147&boundary.rect.max_lat=49.48095804254113")
+                    .build();
+
+
+
+
+            client.newCall(requestCoordPtDepart).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    final String webContent = response.body().string();
+                    if(!response.isSuccessful()){
+                        Log.e("error", "api error occured!");
+                        AjouterTrajetActivity.this.runOnUiThread(() -> {
+                            Toast.makeText(AjouterTrajetActivity.this, "adresse du point de depart introuvable", Toast.LENGTH_SHORT).show();
+                        });
+                    }else{
+                        try {
+                            JSONObject jsonObject = new JSONObject(webContent);
+                            JSONArray jsonArray = new JSONArray(jsonObject.getString("features"));
+                            JSONObject geoObject = jsonArray.getJSONObject(0);
+                            JSONObject coordObject = new JSONObject(geoObject.getString("geometry"));
+                            String coordinates = coordObject.getString("coordinates").replace("[", "").replace("]", "");
+                            String lon = coordinates.split(",")[0];
+                            String lat = coordinates.split(",")[1];
+                            trajet.setLatPtDepart(lat);
+                            trajet.setLonPtDepart(lon);
+                            Log.d("coord_depart:", "lon: " + lon + ", lat:" + lat);
+
+
+                            client.newCall(requestCoordPtArrivee).enqueue(new Callback() {
+                                @Override
+                                public void onFailure(Request request, IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                @Override
+                                public void onResponse(Response response) throws IOException {
+                                    final String webContent = response.body().string();
+                                    if(!response.isSuccessful()){
+                                        Log.e("error", "api error occured!");
+                                        AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                            Toast.makeText(AjouterTrajetActivity.this, "adresse introuvable", Toast.LENGTH_SHORT).show();
+                                        });
+                                    }else{
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(webContent);
+                                            JSONArray jsonArray = new JSONArray(jsonObject.getString("features"));
+                                            JSONObject geoObject = jsonArray.getJSONObject(0);
+                                            JSONObject coordObject = new JSONObject(geoObject.getString("geometry"));
+                                            String coordinates = coordObject.getString("coordinates").replace("[", "").replace("]", "");
+                                            String lon = coordinates.split(",")[0];
+                                            String lat = coordinates.split(",")[1];
+                                            trajet.setLatPtArrivee(lat);
+                                            trajet.setLonPtArrivee(lon);
+                                            Log.d("coord_arrivee-esig:", "lon: " + lon + ", lat:" + lat);
+
+                                            // getting duration(sec) and distance(km)
+                                            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                                            JSONObject parameter = new JSONObject();
+                                            Double[][] coords = {
+                                                    {Double.valueOf(trajet.getLonPtDepart()),Double.valueOf(trajet.getLatPtDepart())},
+                                                    {Double.valueOf(trajet.getLonPtArrivee()),Double.valueOf(trajet.getLatPtArrivee())}
+                                            };
+                                            try {
+                                                parameter.put("locations",new JSONArray(coords));
+                                                parameter.put("metrics", new JSONArray(new Object[] {"distance", "duration"}));
+                                                parameter.put("units","km");
+                                                Log.d("string_json", parameter.toString());
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            RequestBody body = RequestBody.create(JSON, parameter.toString());
+                                            Request requestDistance = new Request.Builder()
+                                                    .url("https://api.openrouteservice.org/v2/matrix/driving-car")
+                                                    .post(body)
+                                                    .addHeader("content-type", "application/json; charset=utf-8")
+                                                    .addHeader("Authorization", "5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12")
+                                                    .build();
+
+                                            client.newCall(requestDistance).enqueue(new Callback() {
+                                                @Override
+                                                public void onFailure(Request request, IOException e) {
+                                                    Log.e("response_error", "an error occured");
+                                                }
+
+                                                @Override
+                                                public void onResponse(Response response) throws IOException {
+                                                    final String webContent = response.body().string();
+                                                    if(!response.isSuccessful()){
+                                                        Log.e("error", "api error occured!");
+                                                        AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                                            Toast.makeText(AjouterTrajetActivity.this, "Erreur lors de la recuperation de la distance", Toast.LENGTH_SHORT).show();
+                                                        });
+                                                    }else{
+                                                        try {
+                                                            JSONObject jsonObject = new JSONObject(webContent);
+                                                            JSONArray jsonArrayDistance = new JSONArray(jsonObject.getString("distances"));
+                                                            JSONArray jsonArrayDuration = new JSONArray(jsonObject.getString("durations"));
+                                                            Log.d("duration", jsonArrayDuration.get(0).toString().split(",")[1].replace("]", ""));
+                                                            Log.d("distance", jsonArrayDistance.get(0).toString().split(",")[1].replace("]", ""));
+                                                            trajet.setDistance(jsonArrayDistance.get(0).toString().split(",")[1].replace("]", ""));
+                                                            trajet.setDuree(jsonArrayDuration.get(0).toString().split(",")[1].replace("]", ""));
+
+                                                            // Instanciation of the controller
+                                                            TrajetController tc = new TrajetController();
+                                                            // Adding the 'trajet'
+                                                            tc.ajouterTrajet(trajet);
+                                                            AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                                                Toast.makeText(AjouterTrajetActivity.this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
+                                                            });
+                                                            redirectActivity(AjouterTrajetActivity.this, AccueilActivity.class);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
+                                                }
+                                            });
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                            AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                                Toast.makeText(AjouterTrajetActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+                                            });
+                                            //return;
+                                        }
+                                    }
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                Toast.makeText(AjouterTrajetActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+                            });
+                            //return;
+                        }
+                    }
+                }
+            });
+
+            /*client.newCall(requestCoordPtArrivee).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    final String webContent = response.body().string();
+                    if(!response.isSuccessful()){
+                        errorDetectedArrivee = true;
+                        Log.e("error", "api error occured!");
+                        AjouterTrajetActivity.this.runOnUiThread(() -> {
+                            Toast.makeText(AjouterTrajetActivity.this, "adresse introuvable", Toast.LENGTH_SHORT).show();
+                        });
+                    }else{
+                        try {
+                            JSONObject jsonObject = new JSONObject(webContent);
+                            JSONArray jsonArray = new JSONArray(jsonObject.getString("features"));
+                            JSONObject geoObject = jsonArray.getJSONObject(0);
+                            JSONObject coordObject = new JSONObject(geoObject.getString("geometry"));
+                            String coordinates = coordObject.getString("coordinates").replace("[", "").replace("]", "");
+                            String lon = coordinates.split(",")[0];
+                            String lat = coordinates.split(",")[1];
+                            trajet.setLatPtArrivee(lat);
+                            trajet.setLonPtArrivee(lon);
+                            Log.d("coord_arrivee-esig:", "lon: " + lon + ", lat:" + lat);
+                            errorDetectedArrivee = false;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            errorDetectedArrivee = true;
+                            AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                Toast.makeText(AjouterTrajetActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+                            });
+                            //return;
+                        }
+                    }
+                }
+            });*/
+
+            /*if(!errorDetectedDepart && !errorDetectedArrivee){
+                // Instanciation of the controller
+                TrajetController tc = new TrajetController();
+                // Adding the 'trajet'
+                tc.ajouterTrajet(trajet);
+                Toast.makeText(this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
+                redirectActivity(this, AccueilActivity.class);
+            }*/
         }
     }
 
