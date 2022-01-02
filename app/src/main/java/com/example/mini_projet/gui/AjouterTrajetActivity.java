@@ -6,6 +6,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,7 +62,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     private Switch swCompAuto = null;
     private EditText etContribution = null;
     private Button btnValiderAjoutTrajet = null;
-
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,9 +218,40 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
         closeDrawer(drawerLayout);
     }
 
+    public void showDialog(Trajet t){
+        builder = new AlertDialog.Builder(this);
+
+        //Setting message manually and performing action on button click
+        builder.setMessage("Confirmez-vous l'enregistrement de ce trajet ?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                        // Instanciation of the controller
+                        TrajetController tc = new TrajetController();
+                        // Adding the 'trajet'
+                        tc.ajouterTrajet(t);
+                        Toast.makeText(getApplicationContext(),"trajet ajouté avec succès!",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle("AlertDialogExample");
+        alert.show();
+    }
+
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btnValiderAjoutTrajet){
+
             String numbers[] = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
             List<String> numbersList = new ArrayList<>(Arrays.asList(numbers));
             String day, month, year = null;
@@ -366,14 +399,58 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
                                                             trajet.setDistance(jsonArrayDistance.get(0).toString().split(",")[1].replace("]", ""));
                                                             trajet.setDuree(jsonArrayDuration.get(0).toString().split(",")[1].replace("]", ""));
 
-                                                            // Instanciation of the controller
-                                                            TrajetController tc = new TrajetController();
-                                                            // Adding the 'trajet'
-                                                            tc.ajouterTrajet(trajet);
                                                             AjouterTrajetActivity.this.runOnUiThread(() -> {
-                                                                Toast.makeText(AjouterTrajetActivity.this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
+                                                                //Toast.makeText(AjouterTrajetActivity.this, "thissss", Toast.LENGTH_SHORT).show();
+                                                                showDialog(trajet);
                                                             });
-                                                            redirectActivity(AjouterTrajetActivity.this, AccueilActivity.class);
+
+                                                            /*builder = new AlertDialog.Builder(AjouterTrajetActivity.this);
+                                                            //Uncomment the below code to Set the message and title from the strings.xml file
+                                                            builder.setMessage("hello") .setTitle("TITLE");
+
+                                                            //Setting message manually and performing action on button click
+                                                            builder.setMessage("Do you want to close this application ?")
+                                                                    .setCancelable(false)
+                                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            finish();
+                                                                            Toast.makeText(getApplicationContext(),"you choose yes action for alertbox",
+                                                                                    Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    })
+                                                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                                                        public void onClick(DialogInterface dialog, int id) {
+                                                                            //  Action for 'NO' Button
+                                                                            dialog.cancel();
+                                                                            Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
+                                                                                    Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    });
+                                                            //Creating dialog box
+                                                            AlertDialog alert = builder.create();
+                                                            //Setting the title manually
+                                                            alert.setTitle("AlertDialogExample");
+                                                            alert.show();*/
+
+
+
+                                                            /*builder
+                                                                .setTitle("Confirmation")
+                                                                .setMessage("Voulez-vous confirmer ce trajet?")
+                                                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                                                        // Instanciation of the controller
+                                                                        TrajetController tc = new TrajetController();
+                                                                        // Adding the 'trajet'
+                                                                        tc.ajouterTrajet(trajet);
+                                                                        AjouterTrajetActivity.this.runOnUiThread(() -> {
+                                                                            Toast.makeText(AjouterTrajetActivity.this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
+                                                                        });
+                                                                    }})
+                                                                .setNegativeButton(android.R.string.no, null).show();
+
+                                                            redirectActivity(AjouterTrajetActivity.this, AccueilActivity.class);*/
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
@@ -395,7 +472,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
                         } catch (JSONException e) {
                             e.printStackTrace();
                             AjouterTrajetActivity.this.runOnUiThread(() -> {
-                                Toast.makeText(AjouterTrajetActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AjouterTrajetActivity.this, "Verifiez l'adresse du point de depart", Toast.LENGTH_SHORT).show();
                             });
                             //return;
                         }
