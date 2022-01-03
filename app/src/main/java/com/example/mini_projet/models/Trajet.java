@@ -19,10 +19,12 @@ public class Trajet {
     String contribution;
     String distance;
     String duree;
+    String etatTrajet = "en cours";
+    String emailUser;
 
     public Trajet(){ }
 
-    public Trajet(String moyenTransport, String ptDepart, String latPtDepart, String lonPtDepart, String ptArrivee, String latPtArrivee, String lonPtArrivee, String date, String heure, String retardTolere, String nbPlacesDispo, boolean comprendAutoroute, String contribution, String distance, String duree){
+    public Trajet(String moyenTransport, String ptDepart, String latPtDepart, String lonPtDepart, String ptArrivee, String latPtArrivee, String lonPtArrivee, String date, String heure, String retardTolere, String nbPlacesDispo, boolean comprendAutoroute, String contribution, String distance, String duree, String etatTrajet, String emailUser){
         this.moyenTransport = moyenTransport;
         this.ptDepart = ptDepart;
         this.latPtDepart = latPtDepart;
@@ -38,6 +40,8 @@ public class Trajet {
         this.contribution = contribution;
         this.distance = distance;
         this.duree = duree;
+        this.etatTrajet = etatTrajet;
+        this.emailUser = emailUser;
     }
 
     public String getPtDepart() {
@@ -156,5 +160,21 @@ public class Trajet {
 
     public void setDuree(String duree) {
         this.duree = duree;
+    }
+
+    public String getEtatTrajet() {
+        return etatTrajet;
+    }
+
+    public void setEtatTrajet(String etatTrajet) {
+        this.etatTrajet = etatTrajet;
+    }
+
+    public String getEmailUser() {
+        return emailUser;
+    }
+
+    public void setEmailUser(String emailUser) {
+        this.emailUser = emailUser;
     }
 }

@@ -59,7 +59,7 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     public void ClickMesTrajets(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,MesTrajetsActivity.class);
     }
 
     public void ClickChercherTrajet(View v) {

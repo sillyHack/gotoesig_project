@@ -145,7 +145,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
 
         /** Set the year spinner **/
         List<String> listYears = new ArrayList<>();
-        for(int i=2021; i<=2025; i++){
+        for(int i=2022; i<=2025; i++){
             listYears.add(String.valueOf(i));
         }
         ArrayAdapter<String> adapterYears = new ArrayAdapter<String>(AjouterTrajetActivity.this, android.R.layout.simple_spinner_dropdown_item, listYears);
@@ -282,10 +282,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
             trajet.setContribution(etContribution.getText().toString());
 
             OkHttpClient client = new OkHttpClient();
-            /*Request request = new Request.Builder()
-                    .url("https://api.openrouteservice.org/v2/matrix/driving-car")
-                    .header("Authorization", "5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12")
-                    .build();*/
+
             Request requestCoordPtDepart = new Request.Builder()
                     .url("https://api.openrouteservice.org/geocode/autocomplete?api_key=5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12&text="+ trajet.getPtDepart() +"&boundary.rect.min_lon=0.9928593563226462&boundary.rect.min_lat=49.359600944261054&boundary.rect.max_lon=1.15439688855147&boundary.rect.max_lat=49.48095804254113")
                     .build();
@@ -293,9 +290,6 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
             Request requestCoordPtArrivee = new Request.Builder()
                     .url("https://api.openrouteservice.org/geocode/autocomplete?api_key=5b3ce3597851110001cf6248c8d7034edd1140f3a0751d6d3a6e7c12&text="+ trajet.getPtArrivee() +"&boundary.rect.min_lon=0.9928593563226462&boundary.rect.min_lat=49.359600944261054&boundary.rect.max_lon=1.15439688855147&boundary.rect.max_lat=49.48095804254113")
                     .build();
-
-
-
 
             client.newCall(requestCoordPtDepart).enqueue(new Callback() {
                 @Override
@@ -400,57 +394,9 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
                                                             trajet.setDuree(jsonArrayDuration.get(0).toString().split(",")[1].replace("]", ""));
 
                                                             AjouterTrajetActivity.this.runOnUiThread(() -> {
-                                                                //Toast.makeText(AjouterTrajetActivity.this, "thissss", Toast.LENGTH_SHORT).show();
                                                                 showDialog(trajet);
                                                             });
 
-                                                            /*builder = new AlertDialog.Builder(AjouterTrajetActivity.this);
-                                                            //Uncomment the below code to Set the message and title from the strings.xml file
-                                                            builder.setMessage("hello") .setTitle("TITLE");
-
-                                                            //Setting message manually and performing action on button click
-                                                            builder.setMessage("Do you want to close this application ?")
-                                                                    .setCancelable(false)
-                                                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                                                        public void onClick(DialogInterface dialog, int id) {
-                                                                            finish();
-                                                                            Toast.makeText(getApplicationContext(),"you choose yes action for alertbox",
-                                                                                    Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    })
-                                                                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                                                        public void onClick(DialogInterface dialog, int id) {
-                                                                            //  Action for 'NO' Button
-                                                                            dialog.cancel();
-                                                                            Toast.makeText(getApplicationContext(),"you choose no action for alertbox",
-                                                                                    Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    });
-                                                            //Creating dialog box
-                                                            AlertDialog alert = builder.create();
-                                                            //Setting the title manually
-                                                            alert.setTitle("AlertDialogExample");
-                                                            alert.show();*/
-
-
-
-                                                            /*builder
-                                                                .setTitle("Confirmation")
-                                                                .setMessage("Voulez-vous confirmer ce trajet?")
-                                                                .setIcon(android.R.drawable.ic_dialog_alert)
-                                                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                                                        // Instanciation of the controller
-                                                                        TrajetController tc = new TrajetController();
-                                                                        // Adding the 'trajet'
-                                                                        tc.ajouterTrajet(trajet);
-                                                                        AjouterTrajetActivity.this.runOnUiThread(() -> {
-                                                                            Toast.makeText(AjouterTrajetActivity.this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
-                                                                        });
-                                                                    }})
-                                                                .setNegativeButton(android.R.string.no, null).show();
-
-                                                            redirectActivity(AjouterTrajetActivity.this, AccueilActivity.class);*/
                                                         } catch (JSONException e) {
                                                             e.printStackTrace();
                                                         }
@@ -479,55 +425,6 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
                     }
                 }
             });
-
-            /*client.newCall(requestCoordPtArrivee).enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    final String webContent = response.body().string();
-                    if(!response.isSuccessful()){
-                        errorDetectedArrivee = true;
-                        Log.e("error", "api error occured!");
-                        AjouterTrajetActivity.this.runOnUiThread(() -> {
-                            Toast.makeText(AjouterTrajetActivity.this, "adresse introuvable", Toast.LENGTH_SHORT).show();
-                        });
-                    }else{
-                        try {
-                            JSONObject jsonObject = new JSONObject(webContent);
-                            JSONArray jsonArray = new JSONArray(jsonObject.getString("features"));
-                            JSONObject geoObject = jsonArray.getJSONObject(0);
-                            JSONObject coordObject = new JSONObject(geoObject.getString("geometry"));
-                            String coordinates = coordObject.getString("coordinates").replace("[", "").replace("]", "");
-                            String lon = coordinates.split(",")[0];
-                            String lat = coordinates.split(",")[1];
-                            trajet.setLatPtArrivee(lat);
-                            trajet.setLonPtArrivee(lon);
-                            Log.d("coord_arrivee-esig:", "lon: " + lon + ", lat:" + lat);
-                            errorDetectedArrivee = false;
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            errorDetectedArrivee = true;
-                            AjouterTrajetActivity.this.runOnUiThread(() -> {
-                                Toast.makeText(AjouterTrajetActivity.this, "Une erreur est survenue", Toast.LENGTH_SHORT).show();
-                            });
-                            //return;
-                        }
-                    }
-                }
-            });*/
-
-            /*if(!errorDetectedDepart && !errorDetectedArrivee){
-                // Instanciation of the controller
-                TrajetController tc = new TrajetController();
-                // Adding the 'trajet'
-                tc.ajouterTrajet(trajet);
-                Toast.makeText(this, "trajet ajouté avec succès!", Toast.LENGTH_SHORT).show();
-                redirectActivity(this, AccueilActivity.class);
-            }*/
         }
     }
 
