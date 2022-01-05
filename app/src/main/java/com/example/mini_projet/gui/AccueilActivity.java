@@ -63,7 +63,7 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ChercherUnTrajetActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {

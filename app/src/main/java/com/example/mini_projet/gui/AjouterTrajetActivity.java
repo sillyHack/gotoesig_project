@@ -197,7 +197,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ChercherUnTrajetActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {
@@ -252,6 +252,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         if(view.getId() == R.id.btnValiderAjoutTrajet){
 
+            // format the date
             String numbers[] = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9"};
             List<String> numbersList = new ArrayList<>(Arrays.asList(numbers));
             String day, month, year = null;

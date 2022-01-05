@@ -61,13 +61,13 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
         });
 
         // set the listeners
-        lvTrajets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*lvTrajets.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Trajet t = (Trajet) lvTrajets.getItemAtPosition(position);
                 Toast.makeText(MesTrajetsActivity.this, "Selected :" + " " + t.getDate(), Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         btnRetour.setOnClickListener(this);
     }
 
@@ -108,7 +108,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ChercherUnTrajetActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {

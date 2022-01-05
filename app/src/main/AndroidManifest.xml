@@ -3,6 +3,8 @@
     package="com.example.mini_projet">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mini_Projet">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCqi_LKwZVDpkInsuzPo_xpy1jiiGJZ9dw"></meta-data>
+
+        <activity
+            android:name=".gui.ChercherUnTrajetActivity"
+            android:exported="false" />
         <activity
             android:name=".gui.MesTrajetsActivity"
             android:exported="false" />
