@@ -97,7 +97,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void ClickProfil(View v) {
-        redirectActivity(this, AccueilActivity.class);
+        redirectActivity(this, ProfilActivity.class);
     }
 
     public void ClickAjoutTrajet(View v) {
@@ -109,7 +109,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ChercherUnTrajetActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {

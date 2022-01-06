@@ -125,7 +125,7 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ChercherUnTrajetActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {
@@ -137,7 +137,7 @@ public class ProfilActivity extends AppCompatActivity {
     }
 
     public void ClickQuitter(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ConnexionActivity.class);
     }
 
     @Override

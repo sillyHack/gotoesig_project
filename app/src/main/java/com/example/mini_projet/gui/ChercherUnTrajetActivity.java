@@ -164,7 +164,7 @@ public class ChercherUnTrajetActivity extends AppCompatActivity implements View.
     }
 
     public void ClickProfil(View v) {
-        redirectActivity(this, AccueilActivity.class);
+        redirectActivity(this, ProfilActivity.class);
     }
 
     public void ClickAjoutTrajet(View v) {
