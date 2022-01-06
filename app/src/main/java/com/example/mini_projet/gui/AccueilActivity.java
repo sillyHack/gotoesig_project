@@ -75,7 +75,7 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     public void ClickQuitter(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ConnexionActivity.class);
     }
 
     @Override

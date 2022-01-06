@@ -3,6 +3,8 @@
     package="com.example.mini_projet">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
@@ -15,7 +17,7 @@
         android:theme="@style/Theme.Mini_Projet">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCqi_LKwZVDpkInsuzPo_xpy1jiiGJZ9dw"></meta-data>
+            android:value="AIzaSyB5ss9qeW94g8fNfdO8mPHIFVDT8NPpqUE"></meta-data>
 
         <activity
             android:name=".gui.ChercherUnTrajetActivity"

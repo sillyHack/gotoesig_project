@@ -43,6 +43,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_mes_trajets);
 
         // getting the components
+        drawerLayout = findViewById(R.id.drawer_layout_mes_trajets);
         lvTrajets = findViewById(R.id.lvTrajets);
         btnRetour = findViewById(R.id.btnRetour);
 
@@ -120,7 +121,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void ClickQuitter(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ConnexionActivity.class);
     }
 
     @Override

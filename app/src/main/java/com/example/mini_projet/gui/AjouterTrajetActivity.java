@@ -209,7 +209,7 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     }
 
     public void ClickQuitter(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,ConnexionActivity.class);
     }
 
     @Override
