@@ -193,11 +193,11 @@ public class AjouterTrajetActivity extends AppCompatActivity implements View.OnC
     }
 
     public void ClickMesTrajets(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this,MesTrajetsActivity.class);
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,ChercherUnTrajetActivity.class);
+        redirectActivity(this,AccueilActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {

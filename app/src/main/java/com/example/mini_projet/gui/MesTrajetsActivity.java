@@ -109,7 +109,7 @@ public class MesTrajetsActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,ChercherUnTrajetActivity.class);
+        redirectActivity(this,AccueilActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {

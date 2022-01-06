@@ -8,4 +8,10 @@
     <item name="telephone" type="id" />
     <item name="motDePasse" type="id" />
     <item name="btnValider" type="id" />
+    <item name="score" type="id" />
+    <item name="nom_complet" type="id" />
+    <item name="tvNomComplet" type="id" />
+    <item name="tvVille" type="id" />
+    <item name="tvTelephone" type="id" />
+    <item name="tvScore" type="id" />
 </resources>
