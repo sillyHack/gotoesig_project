@@ -58,7 +58,7 @@ public class User {
         return telephone;
     }
 
-    public void setTelephone(String tel) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

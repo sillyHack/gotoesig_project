@@ -1,18 +1,42 @@
 package com.example.mini_projet.gui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
+import com.example.mini_projet.*;
 import com.example.mini_projet.R;
+import com.example.mini_projet.controllers.UserController;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class AccueilActivity extends AppCompatActivity{
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class AccueilActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
 
@@ -39,7 +63,7 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     private static void closeDrawer(DrawerLayout drawerLayout) {
-        if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
@@ -51,7 +75,7 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     public void ClickProfil(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this, ProfilActivity.class);
     }
 
     public void ClickAjoutTrajet(View v) {
@@ -59,23 +83,23 @@ public class AccueilActivity extends AppCompatActivity{
     }
 
     public void ClickMesTrajets(View v) {
-        redirectActivity(this,MesTrajetsActivity.class);
+        redirectActivity(this, MesTrajetsActivity.class);
     }
 
     public void ClickChercherTrajet(View v) {
-        redirectActivity(this,ChercherUnTrajetActivity.class);
+        redirectActivity(this, AccueilActivity.class);
     }
 
     public void ClickEvaluerTrajet(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this, AccueilActivity.class);
     }
 
     public void ClickStatistiques(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this, AccueilActivity.class);
     }
 
     public void ClickQuitter(View v) {
-        redirectActivity(this,AccueilActivity.class);
+        redirectActivity(this, AccueilActivity.class);
     }
 
     @Override
